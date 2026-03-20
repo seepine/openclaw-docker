@@ -28,10 +28,12 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ vars.DOCKER_USERNAME }}/openclaw:${{ steps.meta.outputs.version }}
+            ${{ vars.DOCKER_USERNAME }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ steps.meta.outputs.tags }} success"
+        run: echo "Release ${{ steps.meta.outputs.version }} success"
 
   release-ghcr:
     runs-on: ubuntu-latest
@@ -57,7 +59,9 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ghcr.io/${{ github.actor }}/openclaw:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ github.actor }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ steps.meta.outputs.tags }} success"
+        run: echo "Release ${{ steps.meta.outputs.version }} success"
