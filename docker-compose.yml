@@ -1,0 +1,24 @@
+services:
+  openclaw:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: seepine/openclaw:latest
+    volumes:
+      # 修改 ./data 为你的目录
+      - ./data:/root
+
+
+    # 可选，不需要webUI可去掉
+    environment:
+      OPENCLAW_GATEWAY_TOKEN: r8l6fXMVxtQjtw # 修改此处，访问webUI需要
+    ports:
+      - 18789:18789
+
+    # 可选，限制资源
+    deploy:
+      resources:
+        limits: # 最大可用资源
+          cpus: 4
+          memory: 4096m
