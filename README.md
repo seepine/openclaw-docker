@@ -86,7 +86,7 @@ npx clawhub login --token clh_xxxxxx
 告诉 openclaw
 
 ```
-我刚部署好 openclaw，我需要做什么
+这是部署后第一次对话，根据 AGENTS.md 描述，当 BOOTSTRAP.md 存在要执行，之后删除它
 ```
 
 ### 2. 安装 skill
