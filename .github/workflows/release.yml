@@ -1,5 +1,8 @@
 name: Release
 
+env:
+  OPENCLAW_VERSION: 2026.3.23-2
+
 on:
   push:
     paths:
@@ -7,9 +10,6 @@ on:
       - 'Dockerfile'
       - 'entrypoint.sh'
       - 'index.js'
-
-env:
-  VERSION: 2026.3.23-2
 
 jobs:
   release-docker:
@@ -34,12 +34,14 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: |
+            OPENCLAW_VERSION=${{ env.OPENCLAW_VERSION }}
           tags: |
-            ${{ vars.DOCKER_USERNAME }}/openclaw:${{ env.VERSION }}
+            ${{ vars.DOCKER_USERNAME }}/openclaw:${{ env.OPENCLAW_VERSION }}
             ${{ vars.DOCKER_USERNAME }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ env.VERSION }} success"
+        run: echo "Release ${{ env.OPENCLAW_VERSION }} success"
 
   release-ghcr:
     runs-on: ubuntu-latest
@@ -65,9 +67,11 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
           push: true
+          build-args: |
+            OPENCLAW_VERSION=${{ env.OPENCLAW_VERSION }}
           tags: |
-            ghcr.io/${{ github.actor }}/openclaw:${{ env.VERSION }}
+            ghcr.io/${{ github.actor }}/openclaw:${{ env.OPENCLAW_VERSION }}
             ghcr.io/${{ github.actor }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ env.VERSION }} success"
+        run: echo "Release ${{ env.OPENCLAW_VERSION }} success"
