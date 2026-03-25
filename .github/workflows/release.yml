@@ -2,8 +2,14 @@ name: Release
 
 on:
   push:
-    tags:
-      - v*
+    paths:
+      - '.github/workflows/release.yml'
+      - 'Dockerfile'
+      - 'entrypoint.sh'
+      - 'index.js'
+
+env:
+  VERSION: 2026.3.23-2
 
 jobs:
   release-docker:
@@ -29,11 +35,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ vars.DOCKER_USERNAME }}/openclaw:${{ steps.meta.outputs.version }}
+            ${{ vars.DOCKER_USERNAME }}/openclaw:${{ env.VERSION }}
             ${{ vars.DOCKER_USERNAME }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ steps.meta.outputs.version }} success"
+        run: echo "Release ${{ env.VERSION }} success"
 
   release-ghcr:
     runs-on: ubuntu-latest
@@ -60,8 +66,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/openclaw:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ github.actor }}/openclaw:${{ env.VERSION }}
             ghcr.io/${{ github.actor }}/openclaw:latest
 
       - name: Success
-        run: echo "Release ${{ steps.meta.outputs.version }} success"
+        run: echo "Release ${{ env.VERSION }} success"
