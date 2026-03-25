@@ -1,14 +1,16 @@
 services:
   openclaw:
+    # --- for local dev, del it to deploy
     build:
       context: .
       dockerfile: Dockerfile
+    # --- end
+
 
     image: seepine/openclaw:latest
     volumes:
       # 修改 ./data 为你的目录
-      - ./data:/root
-
+      - ./openclaw_root:/root
 
     # 可选，不需要webUI可去掉
     environment:
