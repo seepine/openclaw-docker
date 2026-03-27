@@ -1,7 +1,7 @@
 name: Release
 
 env:
-  OPENCLAW_VERSION: 2026.3.23-2
+  OPENCLAW_VERSION: 2026.3.24
 
 on:
   push:
